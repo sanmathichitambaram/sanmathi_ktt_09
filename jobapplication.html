@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>job application</title>
+        <link rel="icon" href="htmll.html" type="image/icon">
+        <style>
+            label{
+                width: 200px;
+                display: inline-block;
+            }
+            body{
+                 font-family: Arial;
+            }
+            form{
+                max-width: 620px;
+                margin: auto;
+                background-color:rgb(216, 235, 249) ;
+                padding: 20px;
+                border-radius: 20px;
+            }
+            select{
+                border: 1px solid black;
+                width: 168px;
+                padding: 1px;
+
+            }
+            table,td{
+                        border-collapse: collapse;
+                        border: 1px solid black;
+                    }
+                    td{
+                       padding: 10px;
+                    }
+                    .submit{
+                        text-align: right;
+                    } 
+                    #textbox {
+                        margin-top: -20px;
+                        margin-left: 375px;
+                        width: 95px;
+                    }
+                    textarea{
+                        margin-bottom: -10px;
+                    }
+
+        
+    </style>
+
+     
+        </head>
+        <body>
+        <h1 align="center" style="color: rgb(4, 88, 116);">JOB APPLICATION</h1>
+            <hr width="620">
+        <form>
+            <label>First Name :</label>
+            <input type="text" placeholder="Enter Name"><br><br>
+            <label>Last Name :</label>
+            <input type="text" placeholder="Enter Name"><br><br>
+            <label>DOB :</label>
+            <input type="date" style="width: 168px;"><br><br>
+            <label>Gender :</label>
+            <input type="radio" name="Gender" value="Male">Male
+            <input type="radio" name="Gender" value="Female">Female
+            <input type="radio" name="Gender" value="Others">Others<br><br>
+            <label>Email :</label>
+            <input type="email" required><br><br>
+            <label >Phone No :</label>
+            <input type="tel" maxlength="10" oninput="numberonly(this)"><br><br>
+            <label>Aadhar No :</label>
+            <input type="text" maxlength="12" title="12 digit number" oninput="numberonly(this)"><br><br>
+            <label>Address :</label>
+            <textarea></textarea><br><br>
+            <label>Field Study :</label>
+            <select id="select" onchange="toggle()">
+                <option name="dept" value="select" selected>Select Options</option>
+                <option name="dept" value="CSE">CSE</option>
+                <option name="dept" value="AIDS">AI&DS</option>
+                <option name="dept" value="ECE">ECE</option>
+                <option name="dept" value="BMIE">BMIE</option>
+                <option name="dept" value="MECH">MECH</option>
+                <option name="dept" value="others">Others</option>
+            </select>
+            <input type="text" id="textbox" style="display:none;"><br><br>
+            <label>Work Experience :</label>
+            <textarea></textarea><br><br>
+            <label>Skills:</label>
+            <select>
+                <option>Slelect Options</option>
+                <option value="SQL">SQL</option>
+                <option value="JAVASCRIPT">JavaScript</option>
+                <option value="JAVA">Java</option>
+                <option value="PYTHON">Python</option>
+                <option value="C">C</option>
+                <option value="C++">C++</option>
+            </select><br><br>
+            <label>Language :</label>
+            <input type="checkbox" value="English" checked>English
+            <input type="checkbox" value="Tamil">Tamil
+            <input type="checkbox" value="Hindi">Hindi<br><br>
+            <label>Desired Salary:</label>
+            <input type="text"><br><br>
+            <label>Availability:</label>
+            <input type="radio" name=availability value="Full time">Full time
+            <input type="radio" name=availability value="Part time">Part time<br><br>
+            <label>Education :</label><br><br>
+            <table id="mytable" >
+                <tr>
+                    <td>Highest Degree</td>
+                    <td>University Name</td>
+                    <td>CGPA</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><button type="button" onclick="removeRow(this)">X</button></td>
+                </tr>
+            </table>
+            <button type="button" onclick="addRow()">+</button>
+            <br><br>
+            <label for="certificate">Certificate:</label>
+            <input type="file" multiple accept="image/png, image/jpeg"><br><br>
+            <label>Uplode Resume(20KB):</label>    
+            <input type="file" id="resume" accept=".docx"required><br><br>
+            <div class="submit">
+            <input type="submit" value="Submit">
+            </div>
+            <script>
+                document.getElementById("resume").addEventListener("change", function(){
+                    var fileInput = document.getElementById("resume");
+                    var files = fileInput.files;
+                    var maxSize = 20 * 1024 ;
+                    for (var i = 0; i < files.length; i++) {
+                        if (files[i].size > maxSize) {
+                            alert("file is large");
+                            fileInput.value = ""; 
+                            return false;
+                        }
+                    }
+                });
+                
+                function addRow() {
+                var table = document.getElementById("mytable");
+                var newRow = table.insertRow();
+                var cell1 = newRow.insertCell(0);
+                var cell2 = newRow.insertCell(1);
+                var cell3 = newRow.insertCell(2);
+                var cell4 = newRow.insertCell(3);
+                cell1.innerHTML = '<input type="text" name="Highest Degree">';
+                cell2.innerHTML = '<input type="text" name="University Name">';
+                cell3.innerHTML = '<input type="text" name="CGPA">';
+                cell4.innerHTML = '<button type="button" onclick="removeRow(this)">X</button>';
+            }
+           
+              function removeRow(button) {
+                var  row = button.parentNode.parentNode;
+                var rowCount = row.parentNode.rows.length;
+                if(rowCount === 2 ) {
+                    alert("cannot delete the first row")
+                    return;
+               } 
+               row.parentNode.removeChild(row);
+               }
+                 function toggle() {
+                    var selectBox = document.getElementById("select");
+                    var textBox = document.getElementById("textbox");
+                    if (selectBox.value === "others") {
+                        textBox.style.display = "block";
+                    } else {
+                        textBox.style.display = "none";
+                    }
+                }
+                function numberonly(input)
+                {
+                    var num=/[^0-9]/;
+                    input.value=input.value.replace(num,"")
+                }
+            </script>
+        </form>
+    </body>
+    </html>
